@@ -1,11 +1,12 @@
 import pygame
 from game.components.bullets.bullet import Bullet
-from game.utils.constants import ENEMY_TYPE
+from game.utils.constants import ENEMY_TYPE, PLAYER_TYPE
 
 
 class BulletManager:
     def __init__(self):
         #self.bullets = list[Bullet] = []
+        self.player_bullets = []
         self.enemy_bullets: list[Bullet] = []
 
     def update(self, game):
@@ -18,8 +19,19 @@ class BulletManager:
                 pygame.time.delay(1000)
                 break
 
+        for bullet in self.player_bullets:
+            bullet.update(self.player_bullets)
+            # Verificar si hemos golpeado a un enemigo
+            for enemy in game.enemy_manager.enemies:
+                if bullet.rect.colliderect(enemy.rect):
+                    self.player_bullets.remove(bullet)
+                    game.enemy_manager.enemies.remove(enemy)
+
     def draw(self, screen):
         for bullet in self.enemy_bullets:
+            bullet.draw(screen)
+        
+        for bullet in self.player_bullets:
             bullet.draw(screen)
 
     def add_bullet(self, bullet):

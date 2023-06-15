@@ -9,7 +9,7 @@ class Enemy2(Sprite):
     X_POS_LIST = [50, 100, 150, 200, 250, 300, 350, 400, 450, 500, 550]
     Y_POS = 20
     SPEED_X = 5
-    SPEED_Y = 1
+    SPEED_Y = 2
 
     def __init__(self):
         self.image = pygame.transform.scale(ENEMY_2, (50, 50))

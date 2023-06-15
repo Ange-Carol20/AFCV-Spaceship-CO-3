@@ -1,7 +1,7 @@
 import pygame
 from pygame.sprite import Sprite
 
-from game.utils.constants import SCREEN_HEIGHT, SCREEN_WIDTH, SPACESHIP
+from game.utils.constants import PLAYER_TYPE, SCREEN_HEIGHT, SCREEN_WIDTH, SPACESHIP
 
 class Spaceship(Sprite):
     def __init__(self):
@@ -9,6 +9,7 @@ class Spaceship(Sprite):
         self.rect = self.image.get_rect()
         self.rect.x = 520
         self.rect.y = 500
+        self.type = PLAYER_TYPE
 
 
     def update(self, user_input):
@@ -20,6 +21,7 @@ class Spaceship(Sprite):
             self.move_up()
         elif user_input[pygame.K_DOWN]:
             self.move_down()
+
 
     def move_left(self):
         self.rect.x -=10 

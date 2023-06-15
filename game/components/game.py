@@ -1,4 +1,5 @@
 import pygame
+from game.components.bullets.bullet import Bullet
 from game.components.bullets.bullet_manager import BulletManager
 
 from game.components.enemies.enemy_manager import EnemyManager
@@ -36,6 +37,14 @@ class Game:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 self.playing = False
+            elif event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_SPACE:
+                    self.player_shoot() 
+
+    def player_shoot(self):
+        bullet = Bullet(self.player)
+        self.bullet_manager.add_bullet(bullet)
+        self.bullet_manager.player_bullets.append(bullet)
 
     def update(self):
         user_input = pygame.key.get_pressed()
