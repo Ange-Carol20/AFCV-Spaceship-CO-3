@@ -6,7 +6,7 @@ class Menu:
     HALF_SCREEN_HEIGHT = SCREEN_HEIGHT // 2
     HALF_SCREEN_WIDTH = SCREEN_WIDTH // 2
 
-    def __init__(self, message, text_size=30):
+    def __init__(self, message, text_size=35):
         self.font = pygame.font.Font(FONT_STYLE, text_size)
         self.icon = pygame.transform.scale(ICON, (120, 80))
         self.icon_rect = self.icon.get_rect()

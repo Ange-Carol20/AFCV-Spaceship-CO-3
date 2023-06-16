@@ -1,6 +1,6 @@
 import pygame
 from game.components.bullets.bullet import Bullet
-from game.utils.constants import ENEMY_TYPE, PLAYER_TYPE
+from game.utils.constants import ENEMY_TYPE
 
 
 class BulletManager:
@@ -31,10 +31,7 @@ class BulletManager:
                     
 
     def draw(self, screen):
-        for bullet in self.enemy_bullets:
-            bullet.draw(screen)
-        
-        for bullet in self.player_bullets:
+        for bullet in self.enemy_bullets + self.player_bullets:
             bullet.draw(screen)
 
     def add_bullet(self, bullet):

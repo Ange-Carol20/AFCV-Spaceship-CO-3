@@ -3,6 +3,7 @@ from game.components.bullets.bullet import Bullet
 from game.components.bullets.bullet_manager import BulletManager
 
 from game.components.enemies.enemy_manager import EnemyManager
+from game.components.lose_menu import LoseMenu
 from game.components.menu import Menu
 
 from game.components.spaceship import Spaceship
@@ -24,10 +25,12 @@ class Game:
 
         self.score = 0
         self.death_count = 0
+        self.high_score = 0
 
         self.player = Spaceship()
         self.enemy_manager = EnemyManager()
         self.bullet_manager = BulletManager()
+        self.lose_menu = LoseMenu()
         self.menu = Menu("Press any key to start...")
 
     def run(self):
@@ -35,15 +38,21 @@ class Game:
         self.running = True
         while self.running:
             if not self.playing:
-                self.show_menu()
+                if self.death_count > 0:
+                    self.show_lose_menu()
+                else:
+                    self.show_menu()
 
         pygame.display.quit()
         pygame.quit()
 
-    def play(self):
+    def reset(self):
         self.enemy_manager.reset()
         self.playing = True
         self.score = 0
+
+    def play(self):
+        self.reset()
         while self.playing:
             self.events()
             self.update()
@@ -68,6 +77,9 @@ class Game:
         self.player.update(user_input)
         self.enemy_manager.update(self)
         self.bullet_manager.update(self)
+        
+        if self.score > self.high_score:
+            self.high_score = self.score
 
     def draw(self):
         self.clock.tick(FPS)
@@ -98,11 +110,15 @@ class Game:
         self.screen.blit(text, text_rect)
 
     def show_menu(self):
-        if self.death_count > 0:
-            self.menu.update_message("Other message")
-
         self.menu.draw(self.screen)
         self.menu.event(self.on_close, self.play)
+
+    def show_lose_menu(self):
+        self.lose_menu.update_score(self.score)
+        self.lose_menu.update_high_score(self.high_score)
+        self.lose_menu.update_death_count(self.death_count)
+        self.lose_menu.draw(self.screen)
+        self.lose_menu.event(self.on_close, self.play)
 
     def on_close(self):
         self.playing = False
