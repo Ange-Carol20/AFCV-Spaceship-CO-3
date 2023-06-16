@@ -16,6 +16,7 @@ class BulletManager:
             if bullet.rect.colliderect(game.player.rect):
                 self.enemy_bullets.remove(bullet)
                 game.playing = False
+                game.death_count += 1
                 pygame.time.delay(1000)
                 break
 
@@ -24,8 +25,10 @@ class BulletManager:
             # Verificar si hemos golpeado a un enemigo
             for enemy in game.enemy_manager.enemies:
                 if bullet.rect.colliderect(enemy.rect):
-                    self.player_bullets.remove(bullet)
                     game.enemy_manager.enemies.remove(enemy)
+                    game.score += 1
+                    self.player_bullets.remove(bullet)
+                    
 
     def draw(self, screen):
         for bullet in self.enemy_bullets:
