@@ -5,6 +5,7 @@ from game.components.bullets.bullet_manager import BulletManager
 from game.components.enemies.enemy_manager import EnemyManager
 from game.components.lose_menu import LoseMenu
 from game.components.menu import Menu
+from game.components.powerups.manager import Manager
 
 from game.components.spaceship import Spaceship
 from game.utils.constants import BG, FONT_STYLE, ICON, SCREEN_HEIGHT, SCREEN_WIDTH, TITLE, FPS, DEFAULT_TYPE
@@ -32,6 +33,7 @@ class Game:
         self.bullet_manager = BulletManager()
         self.lose_menu = LoseMenu()
         self.menu = Menu("Press any key to start...")
+        self.power_up_manager = Manager()
 
     def run(self):
         # Game loop: events - update - draw
@@ -45,11 +47,6 @@ class Game:
 
         pygame.display.quit()
         pygame.quit()
-
-    def reset(self):
-        self.enemy_manager.reset()
-        self.playing = True
-        self.score = 0
 
     def play(self):
         self.reset()
@@ -77,6 +74,7 @@ class Game:
         self.player.update(user_input)
         self.enemy_manager.update(self)
         self.bullet_manager.update(self)
+        self.power_up_manager.update(self)
         
         if self.score > self.high_score:
             self.high_score = self.score
@@ -89,6 +87,7 @@ class Game:
         self.player.draw(self.screen)
         self.enemy_manager.draw(self.screen)
         self.bullet_manager.draw(self.screen)
+        self.power_up_manager.draw(self.screen)
         pygame.display.update()
         pygame.display.flip()
 
@@ -123,3 +122,9 @@ class Game:
     def on_close(self):
         self.playing = False
         self.running = False
+    
+    def reset(self):
+        self.enemy_manager.reset()
+        self.playing = True
+        self.score = 0
+        self.power_up_manager.reset()
