@@ -108,6 +108,13 @@ class Game:
         text_rect.center = (1000, 50)
         self.screen.blit(text, text_rect)
 
+        if self.player.has_power_up:
+            remaining_time = max(0, (self.player.power_up_time - pygame.time.get_ticks()) // 1000)
+            power_up_text = font.render(f"Shield: {remaining_time}s", True, (255, 255, 255))
+            power_up_text_rect = power_up_text.get_rect()
+            power_up_text_rect.center = (1000, 80)
+            self.screen.blit(power_up_text, power_up_text_rect)
+
     def show_menu(self):
         self.menu.draw(self.screen)
         self.menu.event(self.on_close, self.play)
