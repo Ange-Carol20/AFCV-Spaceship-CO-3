@@ -75,6 +75,7 @@ class Game:
         self.enemy_manager.update(self)
         self.bullet_manager.update(self)
         self.power_up_manager.update(self)
+        self.check_collision()
         
         if self.score > self.high_score:
             self.high_score = self.score
@@ -135,3 +136,10 @@ class Game:
         self.playing = True
         self.score = 0
         self.power_up_manager.reset()
+
+    def check_collision(self):
+        if not self.player.has_power_up:  # verificar si el jugador tiene el escudo activado
+            if pygame.sprite.spritecollideany(self.player, self.enemy_manager.enemies):
+                self.playing = False
+                pygame.time.delay(1000)
+        

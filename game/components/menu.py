@@ -22,13 +22,13 @@ class Menu:
                 on_start()
 
     def draw(self, screen):
-        screen.fill((255, 255, 255))
+        screen.fill((6, 18, 33))
         screen.blit(self.text, self.text_rect)
         screen.blit(self.icon, self.icon_rect)
         pygame.display.update()
 
     def update_message(self, message):
         self.message = message
-        self.text = self.font.render(self.message, True, (0, 0, 0))
+        self.text = self.font.render(self.message, True, (255, 255, 255))
         self.text_rect = self.text.get_rect()
         self.text_rect.center = (self.HALF_SCREEN_WIDTH, self.HALF_SCREEN_HEIGHT)

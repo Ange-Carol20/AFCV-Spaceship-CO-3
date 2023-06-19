@@ -2,7 +2,6 @@ import pygame
 from game.components.bullets.bullet import Bullet
 from game.utils.constants import ENEMY_TYPE, SHIELD_TYPE
 
-
 class BulletManager:
     def __init__(self):
         #self.bullets = list[Bullet] = []

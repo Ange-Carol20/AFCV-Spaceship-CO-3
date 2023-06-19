@@ -4,7 +4,7 @@ from pygame.sprite import Sprite
 from game.utils.constants import BULLET, BULLET_ENEMY, ENEMY_TYPE, PLAYER_TYPE, SCREEN_HEIGHT
 
 class Bullet(Sprite):
-    SPEED = 20
+    SPEED = 25
     ENEMY_BULLET_IMG = pygame.transform.scale(BULLET_ENEMY, (9, 32))
     PLAYER_BULLET_IMG = pygame.transform.scale(BULLET, (9, 32))
     BULLETS = {ENEMY_TYPE: ENEMY_BULLET_IMG, PLAYER_TYPE: PLAYER_BULLET_IMG}

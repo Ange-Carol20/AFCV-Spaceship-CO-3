@@ -34,6 +34,7 @@ class Manager:
             game.player.has_power_up = False
             game.player.power_up_type = DEFAULT_TYPE
             game.player.set_image((40, 60), SPACESHIP)
+        
 
     def draw(self, screen):
         for power_up in self.power_ups:
